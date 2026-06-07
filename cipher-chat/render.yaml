@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: cipher-chat-server
+    env: node
+    region: oregon
+    buildCommand: cd server && npm install && npm run build
+    startCommand: cd server && npm start
+    disk:
+      name: cipher-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        value: https://your-frontend-url.netlify.app
+      - key: DB_PATH
+        value: /var/data/cipher.db
